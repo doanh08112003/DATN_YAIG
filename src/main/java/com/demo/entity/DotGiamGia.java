@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
+=======
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 import java.util.UUID;
 
 @Data
@@ -38,12 +41,20 @@ public class DotGiamGia {
     //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_bat_dau")
+<<<<<<< HEAD
     private LocalDate ngayBatDau;
+=======
+    private String ngayBatDau;
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 
     //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_ket_thuc")
+<<<<<<< HEAD
     private LocalDate ngayKetThuc;
+=======
+    private String ngayKetThuc;
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 
     @Column(name = "trang_thai")
     private TrangThai trangThai;
@@ -56,7 +67,10 @@ public class DotGiamGia {
     @Column(name = "loai_giam")
     private LoaiGiam loaiGiam;
 
+<<<<<<< HEAD
     @Column(name = "muc_giam")
     private Integer mucGiam;
 
+=======
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 }

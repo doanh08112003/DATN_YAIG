@@ -1,5 +1,6 @@
 package com.demo.Controller;
 
+<<<<<<< HEAD
 import com.demo.dto.DPDto;
 import com.demo.entity.DotGiamGia;
 import com.demo.entity.DotGiamGiaChiTiet;
@@ -13,16 +14,30 @@ import com.demo.repo.NhanVienRepo;
 import com.demo.repo.SanPhamChiTietRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+=======
+import com.demo.entity.DotGiamGia;
+import com.demo.entity.NhanVien;
+import com.demo.enums.LoaiGiam;
+import com.demo.enums.TrangThai;
+import com.demo.repo.DotGiamGiaRepo;
+import com.demo.repo.NhanVienRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
+=======
+import java.util.List;
+import java.util.UUID;
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 
 //@Controller
 @RestController
@@ -32,6 +47,7 @@ public class DotGiamGiaController {
     DotGiamGiaRepo dotGiamGiaRepo;
     @Autowired
     NhanVienRepo nhanVienRepo;
+<<<<<<< HEAD
     @Autowired
     DotGiamGiaCTRepo dotGiamGiaChiTietRepo;
     @Autowired
@@ -58,6 +74,12 @@ private static List<UUID> selectedIds = new ArrayList<>();
         selectedIds.addAll(dto.getSelectedIds());
         System.out.println(selectedIds);
         return ResponseEntity.ok("Saved product detail IDs: " + selectedIds);
+=======
+
+    @ModelAttribute("nhanVienList")
+    public List<NhanVien> getNhanVienList() {
+        return nhanVienRepo.findAll();
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
     }
 
     @RequestMapping(value = "/dot-giam-gia/hien-thi", method = RequestMethod.GET)
@@ -65,6 +87,7 @@ private static List<UUID> selectedIds = new ArrayList<>();
         return ResponseEntity.ok(dotGiamGiaRepo.findAll());
     }
 
+<<<<<<< HEAD
 //    @PostMapping("/dot-giam-gia/add")
 //    public DotGiamGia add(@RequestBody DotGiamGia dotGiamGia) {
 //        dotGiamGia.setTrangThai(TrangThai.HOẠTĐỘNG);
@@ -95,11 +118,17 @@ private static List<UUID> selectedIds = new ArrayList<>();
 //        dotGiamGia.setTen("DGG"+ randomPart);
 //        dotGiamGia.setTrangThai(TrangThai.DANG_DIEN_RA);
 
+=======
+    @PostMapping("/dot-giam-gia/add")
+    public DotGiamGia add(@RequestBody DotGiamGia dotGiamGia) {
+        dotGiamGia.setTrangThai(TrangThai.HOAT_DONG);
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
         if (dotGiamGia.getLoaiGiam() == LoaiGiam.PHAN_TRAM) {
             dotGiamGia.setLoaiGiam(LoaiGiam.PHAN_TRAM);
         } else if (dotGiamGia.getLoaiGiam() == LoaiGiam.TIEN_MAT) {
             dotGiamGia.setLoaiGiam(LoaiGiam.TIEN_MAT);
         }
+<<<<<<< HEAD
         System.out.println(selectedIds+"ids");
         dotGiamGiaRepo.save(dotGiamGia);
         List<SanPhamChiTiet> DSs = sanPhamChiTietRepo.findAllById(selectedIds);
@@ -119,10 +148,16 @@ private static List<UUID> selectedIds = new ArrayList<>();
 //        dgg.setTrangThai(TrangThaiDGG.DA_KETTHUC);
 //        return dotGiamGiaRepo.save(dgg);
 //    }
+=======
+
+        return dotGiamGiaRepo.save(dotGiamGia);
+    }
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 
     @PatchMapping("/dot-giam-gia/delete/{id}")
     public DotGiamGia doiTrangThai(@PathVariable UUID id) {
         DotGiamGia dgg = dotGiamGiaRepo.findById(id).orElse(null);
+<<<<<<< HEAD
 //        dgg.setTrangThai(TrangThai.DA_KETTHUC);
 //        dgg.setTrangThai(0);
         if (dgg.getTrangThai() == TrangThai.DANG_DIEN_RA){ dgg.setTrangThai(TrangThai.DA_KETTHUC);
@@ -130,6 +165,14 @@ private static List<UUID> selectedIds = new ArrayList<>();
         else if(dgg.getTrangThai() == TrangThai.DA_KETTHUC){ dgg.setTrangThai(TrangThai.DANG_DIEN_RA);
         }
 //        dgg.setTrangThai(TrangThai.DA_KETTHUC);
+=======
+//        dgg.setTrangThai(0);
+//        if (pgg.getTrangThai() == TrangThai.HOAT_DONG){ pgg.setTrangThai(TrangThai.NGUNG_HOAT_DONG);
+//        }
+//        else if(pgg.getTrangThai() == TrangThai.NGUNG_HOAT_DONG){ pgg.setTrangThai(TrangThai.HOAT_DONG);
+//        }
+        dgg.setTrangThai(TrangThai.NGUNG_HOAT_DONG);
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
         return dotGiamGiaRepo.save(dgg);
     }
 
@@ -143,8 +186,15 @@ private static List<UUID> selectedIds = new ArrayList<>();
     public DotGiamGia update(@RequestBody DotGiamGia dotGiamGia, @PathVariable UUID id) {
         DotGiamGia pgg = dotGiamGiaRepo.findById(id).orElse(null);
         pgg.setAnh(dotGiamGia.getAnh());
+<<<<<<< HEAD
         pgg.setTen(dotGiamGia.getTen());
         pgg.setMoTa(dotGiamGia.getMoTa());
+=======
+        ;
+        pgg.setTen(dotGiamGia.getTen());
+        pgg.setMoTa(dotGiamGia.getMoTa());
+        ;
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
         pgg.setNgayBatDau(dotGiamGia.getNgayBatDau());
         pgg.setNgayKetThuc(dotGiamGia.getNgayKetThuc());
         pgg.setTrangThai(dotGiamGia.getTrangThai());
@@ -153,6 +203,7 @@ private static List<UUID> selectedIds = new ArrayList<>();
         return dotGiamGiaRepo.save(pgg);
 
     }
+<<<<<<< HEAD
     @GetMapping("/csp/{id_dot_giam_gia}")
     public List<DotGiamGiaChiTiet> getChiTietSanPhamBySanPhamId(@PathVariable UUID id_dot_giam_gia) {
         return dotGiamGiaChiTietRepo.findAll().stream()
@@ -168,5 +219,7 @@ private static List<UUID> selectedIds = new ArrayList<>();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete DotGiamGiaChiTiet with ID: " + id);
         }
     }
+=======
+>>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
 
 }
