@@ -1,20 +1,17 @@
 package com.demo.entity;
 
-<<<<<<< HEAD
+
 import com.demo.enums.TrangThaiSanPham;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-=======
->>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.util.List;
-=======
->>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
+
 import java.util.UUID;
 
 @Data
@@ -28,7 +25,7 @@ public class SanPham {
     @Column(name = "id")
     private UUID id;
 
-<<<<<<< HEAD
+
     @Column(name = "ten_san_pham")
     private String tensanpham;
 
@@ -53,8 +50,6 @@ public class SanPham {
 //    @OneToMany(mappedBy = "san_pham")
 //    @JsonIgnore
 //    private List<SanPhamChiTiet> chiTietSanPhamList;
-=======
-    @Column(name = "ten")
-    private String ten;
->>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
+
+
 }

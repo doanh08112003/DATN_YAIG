@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Controller
 public class DotGiamGiaCTController {
-<<<<<<< HEAD
+
 //    @Autowired
 //    DotGiamGiaCTRepo dotGiamGiaCTRepo;
 //    @Autowired
@@ -89,7 +89,7 @@ public class DotGiamGiaCTController {
 //        dotGiamGiaCTRepo.save(dgg);
 //        return "redirect:/dot-giam-gia-ct/hien-thi";
 //    }
-=======
+
     @Autowired
     DotGiamGiaCTRepo dotGiamGiaCTRepo;
     @Autowired
@@ -155,6 +155,6 @@ public class DotGiamGiaCTController {
         dotGiamGiaCTRepo.save(dgg);
         return "redirect:/dot-giam-gia-ct/hien-thi";
     }
->>>>>>> 170b66d44f9e4ea0f0ca8d987e39b080e75e6e12
+
 
 }
