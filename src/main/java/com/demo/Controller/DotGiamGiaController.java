@@ -2,16 +2,10 @@ package com.demo.Controller;
 
 
 import com.demo.dto.DPDto;
-import com.demo.entity.DotGiamGia;
-import com.demo.entity.DotGiamGiaChiTiet;
-import com.demo.entity.NhanVien;
-import com.demo.entity.SanPhamChiTiet;
+import com.demo.entity.*;
 import com.demo.enums.LoaiGiam;
 import com.demo.enums.TrangThai;
-import com.demo.repo.DotGiamGiaCTRepo;
-import com.demo.repo.DotGiamGiaRepo;
-import com.demo.repo.NhanVienRepo;
-import com.demo.repo.SanPhamChiTietRepo;
+import com.demo.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -24,6 +18,8 @@ import com.demo.repo.NhanVienRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -51,6 +47,10 @@ public class DotGiamGiaController {
     DotGiamGiaCTRepo dotGiamGiaChiTietRepo;
     @Autowired
     SanPhamChiTietRepo sanPhamChiTietRepo;
+    @Autowired
+    KhachHangRepo khachHangRepo;
+   @Autowired
+   private JavaMailSender javaMailSender;
 
 
     //    @ModelAttribute("nhanVienList")
@@ -100,6 +100,8 @@ public class DotGiamGiaController {
 //    }
     @PostMapping("/dot-giam-gia/add")
     public ResponseEntity<String> add(@RequestBody DotGiamGia dotGiamGia) {
+//        DotGiamGia savedDiscount = dotGiamGiaRepo.save(dotGiamGia);
+
 //        System.out.println(dotGiamGia.setNgayKetThuc());
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomPart = new StringBuilder();
@@ -130,19 +132,43 @@ public class DotGiamGiaController {
             dotGiamGia.setLoaiGiam(LoaiGiam.TIEN_MAT);
         }
 
-        System.out.println(selectedIds+"ids");
+        System.out.println(selectedIds + "ids");
+
         dotGiamGiaRepo.save(dotGiamGia);
+
         List<SanPhamChiTiet> DSs = sanPhamChiTietRepo.findAllById(selectedIds);
-        System.out.println(DSs+"sp");
+        System.out.println(DSs + "sp");
         DotGiamGia d = dotGiamGiaRepo.findById(dotGiamGia.getId()).get();
-        for(SanPhamChiTiet c : DSs){
+        for (SanPhamChiTiet c : DSs) {
             DotGiamGiaChiTiet c1 = new DotGiamGiaChiTiet();
             c1.setDotGiamGia(d);
             c1.setSanPhamChiTiet(c);
             dotGiamGiaChiTietRepo.save(c1);
         }
+        notifyCustomers(dotGiamGia);
+
         return ResponseEntity.ok("Saved ");
     }
+    private void notifyCustomers(DotGiamGia dotGiamGia) {
+        List<KhachHang> customers = khachHangRepo.findAll();
+
+        for (KhachHang customer : customers) {
+            sendEmail(customer.getEmail(), dotGiamGia);
+        }
+    }
+
+    private void sendEmail(String to, DotGiamGia discount) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("New Discount on " + discount.getTen());
+        message.setText("We have a new discount on " );
+        javaMailSender.send(message);
+    }
+
+
+
+
+
 //    @PatchMapping("/dot-giam-gia/delete/{id}")
 //    public DotGiamGia doiTrangThai(@PathVariable Long id) {
 //        DotGiamGia dgg = dotGiamGiaRepo.findById(id).orElse(null);
@@ -190,10 +216,8 @@ public class DotGiamGiaController {
         pgg.setTen(dotGiamGia.getTen());
         pgg.setMoTa(dotGiamGia.getMoTa());
 
-        ;
         pgg.setTen(dotGiamGia.getTen());
         pgg.setMoTa(dotGiamGia.getMoTa());
-        ;
 
         pgg.setNgayBatDau(dotGiamGia.getNgayBatDau());
         pgg.setNgayKetThuc(dotGiamGia.getNgayKetThuc());
